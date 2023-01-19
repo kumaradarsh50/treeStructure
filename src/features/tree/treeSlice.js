@@ -1,9 +1,6 @@
-import React, { Children } from 'react';
-import { useDispatch } from 'react-redux';
 import { createSlice } from '@reduxjs/toolkit';
 import treeData from '../../data.json';
 import { v4 as uuidv4 } from 'uuid';
-import { SignalWifiStatusbar4Bar } from '@mui/icons-material';
 const initialState = {
   treeData: treeData,
 };

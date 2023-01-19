@@ -1,21 +1,16 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import {
   importJsonData,
   addNewFolder,
   editNodeDAta,
-  treeSearchHandler,
 } from '../features/tree/treeSlice';
 import TreeStructure from '../treeStructure/TreeStructure';
 
 import { Container } from '@mui/material';
 
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
-import Stack from '@mui/material/Stack';
+
 import Button from '@mui/material/Button';
 
 const TreeComponent = (e) => {
@@ -95,7 +90,7 @@ const TreeComponent = (e) => {
 
   const searchHandler = (e) => {
     // dispatch(treeSearchHandler(e.target.value));
-    const text = e.target.value.trim().toLowerCase();
+    const text = e.target.value.toLowerCase();
     setText(text);
     const filterData = (data) => {
       const fildata = data.filter((item) => {
@@ -107,6 +102,7 @@ const TreeComponent = (e) => {
         } else if (item.children !== undefined) {
           filterData(item.children);
         }
+        return '';
       });
       if (fildata.length > 0) {
         const filterData = {
@@ -274,14 +270,14 @@ const TreeComponent = (e) => {
                         node.photo.map((pic, index) => {
                           return (
                             <div key={index}>
-                              <img src={pic} />
+                              <img src={pic} alt='name' />
                             </div>
                           );
                         })}
                       {!node.photo && (
-                        <div className='img'>
-                          <img />
-                          <img />
+                        <div className='img' alt='name'>
+                          <img alt='name' />
+                          <img alt='name' />
                         </div>
                       )}
                     </div>
