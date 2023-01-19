@@ -11,6 +11,13 @@ import TreeStructure from '../treeStructure/TreeStructure';
 
 import { Container } from '@mui/material';
 
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Unstable_Grid2';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
 const TreeComponent = (e) => {
   //redux state
   const { treeData } = useSelector((store) => store.treeContainer);
@@ -124,7 +131,167 @@ const TreeComponent = (e) => {
   return (
     <Fragment>
       <Container>
-        <div>title</div>
+        <Grid
+          container
+          rowSpacing={1}
+          spacing={1}
+          justifyContent='flex-start'
+          alignItems='stretch'
+        >
+          <Grid item xs={4}>
+            <div className='container'>
+              <input
+                type='file'
+                style={{ display: 'none' }}
+                ref={fileInputRef}
+                onChange={jsonFileInputHandler}
+              />{' '}
+              <div className='sideBar'>
+                <div className='title'>Title</div>
+                <div className='input__box search'>
+                  <input
+                    type='text'
+                    value={text}
+                    placeholder='Search'
+                    onChange={(e) => searchHandler(e)}
+                  />
+                </div>
+                <TreeStructure
+                  data={text ? filterDataList : treeData}
+                  nodeHandler={nodeHandler}
+                />
+                <div className='btnWrapper'>
+                  <div>
+                    <Button
+                      variant='outlined'
+                      sx={{ flexGrow: 1 }}
+                      onClick={() => importJsonHandler()}
+                    >
+                      {' '}
+                      input json
+                    </Button>
+                    <Button
+                      variant='outlined'
+                      sx={{ flexGrow: 1 }}
+                      onClick={() => dispatch(addNewFolder({ treeData, node }))}
+                    >
+                      Add Family
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      variant='outlined'
+                      sx={{ flexGrow: 1 }}
+                      onClick={exportJSONHandler}
+                    >
+                      Export Jason
+                    </Button>
+                    <Button variant='outlined' sx={{ flexGrow: 1 }}>
+                      Print Family Tree
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Grid>
+          <Grid item xs={8}>
+            <div className='container'>
+              <div className='title'>Family Details</div>
+              <form action='#'>
+                <div className='user__details'>
+                  <div className='input__box'>
+                    <span className='details'>
+                      <span>Full Name</span>
+                      <span>:</span>
+                    </span>
+                    <input
+                      type='text'
+                      id='name'
+                      name='name'
+                      value={node.name}
+                      onChange={nodeInfoChangeHandler}
+                    ></input>
+                  </div>
+                  <div className='input__box'>
+                    <span className='details'>
+                      <span>Spouse</span>
+                      <span>:</span>
+                    </span>
+                    <input
+                      type='text'
+                      id='spouse'
+                      name='spouse'
+                      value={node.spouse}
+                      onChange={nodeInfoChangeHandler}
+                    ></input>
+                  </div>
+                  <div className='input__box'>
+                    <span className='details'>
+                      <span>Location</span>
+                      <span>:</span>
+                    </span>
+                    <input
+                      type='text'
+                      id='location'
+                      name='location'
+                      value={node.location}
+                      onChange={nodeInfoChangeHandler}
+                    ></input>
+                  </div>
+                  <div className='input__box'>
+                    <span className='details'>
+                      <span>Birth Year</span>
+                      <span>:</span>
+                    </span>
+                    <input
+                      type='text'
+                      id='birth'
+                      name='birthYear'
+                      value={node.birthYear}
+                      onChange={nodeInfoChangeHandler}
+                    ></input>
+                  </div>
+                  <div className='input__box'>
+                    <span className='details'>
+                      <span>Present Address</span>
+                      <span>:</span>
+                    </span>
+                    <input
+                      type='text'
+                      id='address'
+                      name='presentAddress'
+                      value={node.presentAddress}
+                      onChange={nodeInfoChangeHandler}
+                    ></input>
+                  </div>
+                  <div className='input__box'>
+                    <span className='details'>
+                      <span>Family Photo</span>
+                      <span>:</span>
+                    </span>
+                    <div className='img'>
+                      {node.photo &&
+                        node.photo.map((pic, index) => {
+                          return (
+                            <div key={index}>
+                              <img src={pic} />
+                            </div>
+                          );
+                        })}
+                      {!node.photo && (
+                        <div className='img'>
+                          <img />
+                          <img />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </Grid>
+        </Grid>
+        {/* <div>title</div>
         <input type='text' onChange={(e) => searchHandler(e)} />
 
         <TreeStructure
@@ -132,20 +299,16 @@ const TreeComponent = (e) => {
           nodeHandler={nodeHandler}
         />
 
-        <input
-          type='file'
-          style={{ display: 'none' }}
-          ref={fileInputRef}
-          onChange={jsonFileInputHandler}
-        />
+       
+
         <button onClick={() => importJsonHandler()}> input</button>
         <button onClick={exportJSONHandler}>Export Jason</button>
         <button onClick={() => dispatch(addNewFolder({ treeData, node }))}>
           Add Family
         </button>
         <button>Print Family Tree</button>
-
-        <form>
+*/}
+        {/* <form>
           <label htmlFor='name'>Name</label>
           <input
             type='text'
@@ -193,10 +356,13 @@ const TreeComponent = (e) => {
           <label htmlFor='photo'>Family Photo :</label>
           {node.photo &&
             node.photo.map((pic) => {
-              console.log(pic);
-              return <img src={pic} />;
+              return (
+                <div className='img'>
+                  <img src={pic} />
+                </div>
+              );
             })}
-        </form>
+        </form> */}
       </Container>
     </Fragment>
   );
